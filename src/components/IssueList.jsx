@@ -1,40 +1,28 @@
 import React, { Component } from 'react';
 import '../styles/IssueList.scss';
 import $ from 'jquery';
+import Dispatcher from '../Dispatcher';
+import IssueStore from '../stores/IssueStore';
 
 class IssueList extends Component {
 
   constructor(props) {
     super(props);
 
-    this._resourceUrl = "https://api.github.com/repos/rails/rails/issues";
-
-    this._resourceParams = {
-      per_page: 25,
-      page: 1
-    }
-
     this.state = {
       issues: []
     }
 
+    Dispatcher.on("issues", (d) => {
+      this.setState({
+        issues: d
+      })
+    })
+
   }
 
 	componentDidMount() {
-     console.log("oh hai " , this._resourceUrl);
-
-     $.ajax({
-        url: this._resourceUrl,
-        type: "GET",
-        data: this._resourceParams
-     })
-     .then((r)=> {
-      this.setState({
-        issues: r
-      })
-     })
-
-
+     IssueStore.refresh();
   }
 
 
