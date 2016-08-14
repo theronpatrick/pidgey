@@ -9,3 +9,6 @@ build
 # misc
 .DS_Store
 npm-debug.log
+
+# Need config with credentials because GitHub rate limits unauthenticated requests
+config

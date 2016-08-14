@@ -4,7 +4,7 @@
   float: right;
 
   height: 100%;
-  width: 67%;
+  width: 100 - $issue-list-width;
 
   overflow: auto;
   padding: 14px;

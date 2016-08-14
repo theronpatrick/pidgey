@@ -48,6 +48,7 @@
   "dependencies": {
     "events": "^1.1.1",
     "jquery": "^3.1.0",
+    "parse-link-header": "^0.4.1",
     "react": "^15.2.1",
     "react-dom": "^15.2.1"
   },

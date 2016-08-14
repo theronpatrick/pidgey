@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Pagination from './Pagination';
 
 class Header extends Component {
 
@@ -15,7 +16,7 @@ class Header extends Component {
           <h1>Issue Viewer</h1>
         </div>
         <div className="controls-container">
-          <h2>Controls to come...</h2>
+          <Pagination />
         </div>
       </div>
     );

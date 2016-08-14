@@ -12,9 +12,9 @@ class IssueList extends Component {
       issues: []
     }
 
-    Dispatcher.on("issues", (d) => {
+    Dispatcher.on("issues", (data) => {
       this.setState({
-        issues: d
+        issues: data.issues
       })
     })
 

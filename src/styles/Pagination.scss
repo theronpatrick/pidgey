@@ -1,0 +1,45 @@
+@import 'variables';
+
+.pagination {
+
+  float: left;
+  width: $issue-list-width;
+
+  text-align: left;
+  padding: 0px 0px 0px 14px;
+
+  .pagination-button-container {
+    float: right;
+  }
+
+  button {
+    background-color: $blue1;
+    color: $black;
+    border: 1px solid $blue2;
+
+    min-width: 30px;
+    height: 30px;
+
+    margin-right: 10px;
+
+    cursor: pointer;
+
+    &:hover {
+      color: $white;
+    }
+  }
+
+  select {
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+
+    background-color: $white;
+    color: $black;
+    border: 1px solid $blue2;
+
+    min-width: 30px;
+    height: 30px;
+
+    margin: 0px 0px 0px 10px;
+  }
+}
