@@ -15,7 +15,10 @@ let IssueStore = {
       page: 1
     }
 
-    this.data = {};
+    // Selected issue is the index of the current issue to display
+    this.data = {
+      selectedIssue: 0
+    };
   },
 
   refresh() {
@@ -47,6 +50,10 @@ let IssueStore = {
   // Would have to be expanded to handle more params if the need arose
   setParams(params) {
     this._resourceParams.page = params.page;
+  },
+
+  setSelectedIssue(index) {
+    this.data.selectedIssue = index;
   },
 
   publish() {

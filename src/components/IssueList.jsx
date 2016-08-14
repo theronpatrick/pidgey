@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Dispatcher from '../Dispatcher';
 import IssueStore from '../stores/IssueStore';
 import removeMd from 'remove-markdown';
+import shallowEquals from 'shallow-equals';
 
 class IssueList extends Component {
 
@@ -14,13 +15,17 @@ class IssueList extends Component {
     }
 
     Dispatcher.on("issues", (data) => {
-      console.log("data is " , data);
+
+      // Scroll to top if issues data has changed
+      if (!shallowEquals(data.issues, this.state.issues)) {
+        ReactDOM.findDOMNode(this).scrollTop = 0;
+      }
+
       this.setState({
         issues: data.issues
       })
 
-      // Scroll to top when new issues request is made
-      ReactDOM.findDOMNode(this).scrollTop = 0;
+
     })
 
   }
@@ -50,6 +55,11 @@ class IssueList extends Component {
 
   }
 
+  _selectIssue(index) {
+    IssueStore.setSelectedIssue(index);
+    IssueStore.publish();
+  }
+
 
 
   render() {
@@ -65,11 +75,12 @@ class IssueList extends Component {
           return <span style={style} key={index} className="label">{result.name}</span>
         })
 
-        rows.push(<li key={i} className="issue">
+        let boundClick = this._selectIssue.bind(this, i);
+        rows.push(<li key={i} className="issue" onClick={boundClick}>
           <div><span className="title">{issue.title}</span></div>
           <div><span className="summary">{this._shortenSummary(issue.body)}</span></div>
           <div className="number">Issue#: {issue.number}</div>
-          <div>Reported By: <img src={issue.user.avatar_url}></img> {issue.user.login}</div>
+          <div>Reported By: <img src={issue.user.avatar_url} alt="gravatar"></img> {issue.user.login}</div>
           <div>Labels: {labels}</div>
         </li>);
     }
