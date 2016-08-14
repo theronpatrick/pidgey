@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import '../styles/IssueList.scss';
-import $ from 'jquery';
 import Dispatcher from '../Dispatcher';
 import IssueStore from '../stores/IssueStore';
 
@@ -36,10 +35,12 @@ class IssueList extends Component {
     }
 
     return (
-      <div className="issue-list">
-        <ul>
-          {rows}
-        </ul>
+      <div className="issue-list-container">
+        <div className="issue-list">
+          <ul>
+            {rows}
+          </ul>
+        </div>
       </div>
     );
   }

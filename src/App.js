@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import './styles/App.scss';
 import Header from './components/Header';
 import IssueList from './components/IssueList';
-import Dispatcher from './Dispatcher';
-import $ from 'jquery';
+import IssueDetails from './components/IssueDetails';
 
 class App extends Component {
 
@@ -16,8 +15,9 @@ class App extends Component {
     return (
       <div className="app">
         <Header />
-        <div className="issue-list-container">
+        <div className="app-content">
           <IssueList />
+          <IssueDetails />
         </div>
       </div>
     );

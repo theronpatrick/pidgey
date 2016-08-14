@@ -1,10 +1,10 @@
 @import 'variables';
 
 .issue-list-container {
-  // Make room for header
-  padding: $header-height 0px 0px 0px;
   float: left;
   width: 33%;
+  height: 100%;
+  overflow: auto;
 }
 
 .issue-list {

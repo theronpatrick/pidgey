@@ -2,12 +2,29 @@ body {
   font-family: 'Raleway', sans-serif;
   background-color: $black;
   color: $white;
+  height: 100%;
 }
 
 // Border-box app wide
 html {
   box-sizing: border-box;
+  height: 100%;
 }
 *, *:before, *:after {
   box-sizing: inherit;
+}
+
+.app {
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+  position: relative;
+}
+
+.app-content {
+  // Make room for header
+  padding: $header-height 0px 0px 0px;
+  height: 100%;
 }

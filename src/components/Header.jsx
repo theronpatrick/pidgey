@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
-import $ from 'jquery';
 
 class Header extends Component {
 
-  constructor(props) {
-    super(props);
-
-  }
 
 	componentDidMount() {
-
-
   }
 
 
