@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../styles/IssueList.scss';
 import Dispatcher from '../Dispatcher';
 import IssueStore from '../stores/IssueStore';
 
