@@ -39,20 +39,16 @@ class IssueList extends Component {
 
 
 
-  _doThing() {
-    return "DOIT"
-  }
-
   render() {
 
     // TODO: Make an 'issue' component?
     let rows = [];
     for (let i = 0; i < this.state.issues.length; i++) {
-        rows.push(<li key={i}>{this.state.issues[i].title}</li>);
+        rows.push(<li key={i} className="issue">{this.state.issues[i].title}</li>);
     }
 
     return (
-      <div className="test">
+      <div className="issue-list">
         <ul>
           {rows}
         </ul>

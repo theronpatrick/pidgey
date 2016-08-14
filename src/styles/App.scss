@@ -1,4 +1,8 @@
+// Base
 @import 'normalize';
-@import 'index';
+@import 'variables';
 @import 'base';
+
+// Components
 @import 'IssueList';
+@import 'Header';

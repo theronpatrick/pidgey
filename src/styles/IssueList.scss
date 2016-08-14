@@ -1,3 +1,24 @@
-.test {
-  color: purple;
+@import 'variables';
+
+.issue-list-container {
+  // Make room for header
+  padding: $header-height 0px 0px 0px;
+  float: left;
+  width: 33%;
+}
+
+.issue-list {
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .issue {
+    height: 100px;
+    border-bottom: 1px solid $blue2;
+
+    padding: 14px;
+  }
+
 }
