@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import Dispatcher from '../Dispatcher';
 import ReactDOM from 'react-dom';
+import marked from 'marked';
+import linkUser from '../helpers/linkUser';
+import moment from 'moment';
 
 class IssueDetails extends Component {
 
@@ -9,13 +12,15 @@ class IssueDetails extends Component {
 
     this.state = {
       issues: [],
-      selectedIssue: 0
+      selectedIssue: 0,
+      selectedIssueComments: []
     }
 
     Dispatcher.on("issues", (data) => {
       this.setState({
         issues: data.issues,
-        selectedIssue: data.selectedIssue
+        selectedIssue: data.selectedIssue,
+        comments: data.selectedIssueComments
       })
 
       // Scroll to top when new issues request is made
@@ -25,6 +30,12 @@ class IssueDetails extends Component {
   }
 
 	componentDidMount() {
+  }
+
+  // In a production environment wouldn't actually use this with a 3rd party API, but
+  // could do it with our own if we can ensure it's safe on the server
+  _createMarkup(markdown) {
+    return {__html: marked(markdown)};
   }
 
 
@@ -43,14 +54,30 @@ class IssueDetails extends Component {
       return <span style={style} key={index} className="label">{result.name}</span>
     })
 
+    console.log("comments..." , this.state.comments);
+
+    let comments = this.state.comments.map((result, index) => {
+      return <li key={index}>
+        <div dangerouslySetInnerHTML={this._createMarkup(result.body)}></div>
+        <div className="timestamp">{linkUser(result.user)} at {moment(result.created_at).format('MMMM Do YYYY, h:mm:ss a')}</div>
+      </li>
+    })
+
+
+
     return (
       <div className="issue-details-container">
         <div className="issue">
-          <div><h1 className="title">{issue.title}</h1></div>
-          <div><span className="summary">{issue.body}</span></div>
+          <div><h1 className="title" dangerouslySetInnerHTML={this._createMarkup(issue.title)}></h1></div>
+          <div className="summary" dangerouslySetInnerHTML={this._createMarkup(issue.body)}></div>
           <div className="number">Issue#: {issue.number}</div>
-          <div>Reported By: <img src={issue.user.avatar_url} alt="gravatar"></img> {issue.user.login}</div>
+          <div>Reported By: <img src={issue.user.avatar_url} alt="gravatar"></img> {linkUser(issue.user)}</div>
           <div>Labels: {labels}</div>
+          <div>Comments ({this.state.comments.length}):
+            <ul>
+              {comments}
+            </ul>
+          </div>
         </div>
       </div>
     );

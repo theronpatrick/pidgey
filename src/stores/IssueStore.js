@@ -17,7 +17,12 @@ let IssueStore = {
 
     // Selected issue is the index of the current issue to display
     this.data = {
-      selectedIssue: 0
+      selectedIssue: 0,
+      listStyle: {
+        expanded: false
+      },
+      issues: [],
+      selectedIssueComments: []
     };
   },
 
@@ -31,7 +36,7 @@ let IssueStore = {
           xhr.setRequestHeader ("Authorization", "Basic " + btoa(Creds.un + ":" + Creds.pw))
         },
      })
-     .then((data, status, xhr)=> {
+     .then((data, status, xhr) => {
       this.data.issues = data;
       this.data.pagination = linkParser(xhr.getResponseHeader('Link'));
 
@@ -41,19 +46,52 @@ let IssueStore = {
       }
 
       this.publish();
+
+      // If we don't have comments for any issues, request one for first index
+      if (this.data.selectedIssueComments.length < 1) {
+        this.refreshIssueComments(0);
+      }
      })
      .fail(() => {
         alert("oh noes! Problem with GitHub API");
       })
   },
 
-  // Would have to be expanded to handle more params if the need arose
+  refreshIssueComments(index) {
+
+    let id = this.data.issues[this.data.selectedIssue].number;
+
+    $.ajax({
+        url: this._resourceUrl + "/" + id + "/comments",
+        type: "GET",
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader ("Authorization", "Basic " + btoa(Creds.un + ":" + Creds.pw))
+        },
+     })
+     .then((data, status, xhr)=> {
+      this.data.selectedIssueComments = data;
+      this.publish();
+     })
+     .fail(() => {
+        alert("oh noes! Problem with GitHub API");
+      })
+  },
+
+  // Only for setting state items that modify GET params on API request (right now just page)
   setParams(params) {
+    // Reset comment and selected index to 1 when changing pages
+    this.data.selectedIssueComments = [];
+    this.data.selectedIssue = 0;
+
     this._resourceParams.page = params.page;
   },
 
   setSelectedIssue(index) {
     this.data.selectedIssue = index;
+  },
+
+  setListStyle(listStyle) {
+    this.data.listStyle = listStyle;
   },
 
   publish() {

@@ -18,6 +18,10 @@
   .issue {
     border-bottom: 1px solid $blue2;
     cursor: pointer;
+
+    &[data-selected='true'] {
+      background-color: $blue3;
+    }
   }
 
   div {
@@ -26,4 +30,12 @@
       margin: 0px;
     }
   }
+
+  // Hide everything except title if not expanded
+  &[data-expanded="true"] {
+    .summary, .number, .reported-by, .labels {
+      display: none;
+    }
+  }
+
 }

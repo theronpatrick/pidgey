@@ -15,11 +15,16 @@ class Pagination extends Component {
         previous: {},
         last: {},
         current: {}
+      },
+      listStyle: {
+        expanded: true
       }
     }
 
     Dispatcher.on("issues", (data) => {
       // Set objects individually so potentially undefined objects like "previous" are set correctly
+
+      console.log("expanded is " , data.listStyle);
 
       this.setState({
         pagination: {
@@ -27,7 +32,9 @@ class Pagination extends Component {
           previous: data.pagination.prev || {},
           last: data.pagination.last || {},
           current: data.pagination.current || {}
-        }
+        },
+        listStyle: data.listStyle,
+        expandButtonText: data.listStyle.expanded ? "Expand" : "Collapse"
       })
     })
 
@@ -46,6 +53,13 @@ class Pagination extends Component {
   _goToPage(page) {
     IssueStore.setParams({
       page: page
+    })
+    IssueStore.refresh();
+  }
+
+  _expandedButtonClick = (e) => {
+    IssueStore.setListStyle({
+      expanded: !this.state.listStyle.expanded
     })
     IssueStore.refresh();
   }
@@ -77,6 +91,7 @@ class Pagination extends Component {
     return (
       <div className="pagination">
         <span>Page: </span>{pageSelect}
+        <button type="button" onClick={this._expandedButtonClick}>{this.state.expandButtonText}</button>
         <span className="pagination-button-container">{previousButton}{nextButton}</span>
       </div>
     );

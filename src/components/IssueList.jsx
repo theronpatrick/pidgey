@@ -4,6 +4,7 @@ import Dispatcher from '../Dispatcher';
 import IssueStore from '../stores/IssueStore';
 import removeMd from 'remove-markdown';
 import shallowEquals from 'shallow-equals';
+import linkUser from '../helpers/linkUser';
 
 class IssueList extends Component {
 
@@ -11,7 +12,10 @@ class IssueList extends Component {
     super(props);
 
     this.state = {
-      issues: []
+      issues: [],
+      listStyle: {
+        expanded: true
+      }
     }
 
     Dispatcher.on("issues", (data) => {
@@ -22,7 +26,9 @@ class IssueList extends Component {
       }
 
       this.setState({
-        issues: data.issues
+        issues: data.issues,
+        selectedIssue: data.selectedIssue,
+        listStyle: data.listStyle
       })
 
 
@@ -31,7 +37,7 @@ class IssueList extends Component {
   }
 
 	componentDidMount() {
-     IssueStore.refresh();
+    IssueStore.refresh();
   }
 
   // src: http://stackoverflow.com/questions/5454235/javascript-shorten-string-without-cutting-words
@@ -57,7 +63,8 @@ class IssueList extends Component {
 
   _selectIssue(index) {
     IssueStore.setSelectedIssue(index);
-    IssueStore.publish();
+    // Refresh will trigger a publish() as well
+    IssueStore.refreshIssueComments(index);
   }
 
 
@@ -76,18 +83,18 @@ class IssueList extends Component {
         })
 
         let boundClick = this._selectIssue.bind(this, i);
-        rows.push(<li key={i} className="issue" onClick={boundClick}>
+        rows.push(<li key={i} className="issue" onClick={boundClick} data-selected={this.state.selectedIssue === i}>
           <div><span className="title">{issue.title}</span></div>
-          <div><span className="summary">{this._shortenSummary(issue.body)}</span></div>
-          <div className="number">Issue#: {issue.number}</div>
-          <div>Reported By: <img src={issue.user.avatar_url} alt="gravatar"></img> {issue.user.login}</div>
-          <div>Labels: {labels}</div>
+            <div className="summary">{this._shortenSummary(issue.body)}</div>
+            <div className="number">Issue#: {issue.number}</div>
+            <div className="reported-by">Reported By: <img src={issue.user.avatar_url} alt="gravatar"></img> {linkUser(issue.user)}</div>
+            <div className="labels">Labels: {labels}</div>
         </li>);
     }
 
     return (
       <div className="issue-list-container">
-        <div className="issue-list">
+        <div className="issue-list" data-expanded={this.state.listStyle.expanded}>
           <ul>
             {rows}
           </ul>

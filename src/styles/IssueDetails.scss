@@ -13,11 +13,47 @@
     margin: 0px 0px 15px 0px;
   }
 
-  .summary {
-    font-size: 1.2rem;
-  }
-
   div {
     margin: 0px 0px 10px 0px;
+  }
+
+  // Comment list
+  ul {
+    list-style-type: none;
+    margin: 12px 0px 0px 0px;
+    padding: 0;
+    word-wrap: break-word;
+
+    div, p {
+      margin: 0px;
+    }
+
+    li {
+      border: 1px solid $blue2;
+      padding: 12px;
+      margin: 0px 0px 2px 0px;
+
+      &:nth-child(even) {
+        background-color: $gray2;
+      }
+    }
+
+    .timestamp {
+      color: $gray1;
+      a {
+        color: $gray1;
+      }
+    }
+  }
+
+  code {
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  .summary {
+    font-size: 1.2rem;
+    background-color: $blue3;
+    padding: 14px;
   }
 }
