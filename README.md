@@ -1,19 +1,41 @@
-## Available Scripts
+## Dependencies
+
+Make sure you have [node](https://nodejs.org/) installed.
+To install dependencies run `npm install` from the project directory. 
+
+## Running
 
 In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
 
 ### `npm run build`
 
 Builds the app for production to the `build` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+You can run the app using any static server, such as
+```
+npm install -g pushstate-server
+pushstate-server build
+open http://localhost:9000
+```
+
+To view in development mode you can run 
+
+### `npm start`
+
+Runs the app in the development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+### `Tests`
+I spent most of this weekend at a wedding so I didn't have the time to implement proper tests. The one test I was able to run (and passed every time) is:
+```
+var assert = require('assert');
+describe('MarioCake', function() {
+  describe('#eat()', function() {
+    it('should be delicious when you eat it', function() {
+      assert.equal('delicious', cake.eat());
+    });
+  });
+});
+```
+
