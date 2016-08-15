@@ -98,7 +98,7 @@ class Pagination extends Component {
     let issueNumbers;
     if (this.state.pagination.current.page) {
       let perPage = 25;
-      let firstNum = (parseInt(this.state.pagination.current.page) - 1) * perPage + 1;
+      let firstNum = (this.state.pagination.current.page - 1) * perPage + 1;
       let lastNum = firstNum + perPage - 1;
       issueNumbers = <span>Displaying {firstNum} - {lastNum}</span>
     }

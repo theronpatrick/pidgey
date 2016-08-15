@@ -4,8 +4,6 @@ import linkParser from 'parse-link-header';
 
 import Creds from '../config/creds';
 
-// TODO: Set this to just use basic auth
-
 // Started as a single store for just holding issues, but eventually
 // because the overall store for the entire app. Probably could
 // be refactored to be several different stores, or organized into a single
@@ -37,7 +35,8 @@ let IssueStore = {
         type: "GET",
         data: this._resourceParams,
         beforeSend: function (xhr) {
-          xhr.setRequestHeader ("Authorization", "Basic " + btoa(Creds.un + ":" + Creds.pw))
+          // Below was needed for rate limiting API from GitHub
+          // xhr.setRequestHeader ("Authorization", "Basic " + btoa(Creds.un + ":" + Creds.pw))
         },
      })
      .then((data, status, xhr) => {

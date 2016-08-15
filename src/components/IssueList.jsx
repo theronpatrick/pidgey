@@ -77,7 +77,6 @@ class IssueList extends Component {
 
   render() {
 
-    // TODO: Make an 'issue' component?
     let rows = [];
     for (let i = 0; i < this.state.issues.length; i++) {
         let issue = this.state.issues[i];
