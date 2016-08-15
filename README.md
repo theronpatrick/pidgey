@@ -1,7 +1,7 @@
 ## Dependencies
 
-Clone or download zip files from [GitHub](https://github.com/theronpatrick/pidgey)
-Make sure you have [node](https://nodejs.org/) installed.
+Clone or download zip files from [GitHub](https://github.com/theronpatrick/pidgey). <br>
+Make sure you have [node](https://nodejs.org/) installed. <br>
 To install dependencies run `npm install` from the project directory. 
 
 ## Running
