@@ -3,6 +3,7 @@ import $ from 'jquery';
 import linkParser from 'parse-link-header';
 
 import Creds from '../config/creds';
+import Router from '../Router';
 
 // TODO: Set this to just use basic auth
 
@@ -24,6 +25,15 @@ let IssueStore = {
       issues: [],
       selectedIssueComments: []
     };
+
+    Router.registerListener(() => {
+      console.log("in listener...");
+      if (!this._queryParamsAreSynced()) {
+        console.log("shoudl sync");
+        this._syncQueryParams();
+      }
+    });
+
   },
 
   refresh() {
@@ -95,9 +105,35 @@ let IssueStore = {
   },
 
   publish() {
+    this._updateHistory();
     Dispatcher.emit("issues" , this.data);
-  }
+  },
 
+  _updateHistory() {
+    if (!this._queryParamsAreSynced()) {
+      Router.pushState(this.data);
+    }
+
+  },
+
+  // I'm not wild about this implementation. Basically need to update if router params
+  // aren't the same as this component's params. Maybe it's worth the time to
+  // figure out React's Router after all ;)
+  _queryParamsAreSynced() {
+    let queryParams = Router.getQueryParams();
+    if (queryParams.page !== this.data.pagination.current.page) {
+      return false;
+    } else {
+      return true;
+    }
+  },
+
+  _syncQueryParams() {
+    let queryParams = Router.getQueryParams();
+    this.setParams({
+      page: queryParams.page
+    })
+  }
 
 }
 
