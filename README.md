@@ -27,6 +27,22 @@ To view in development mode you can run
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
+### Known Issues
+
+The GitHub API limits the amount of API requests you can make to 30 per hour if you're not authenticated.  <br>
+To add authentication, uncomment the lines in `IssueStore.js` that looks like: <br>
+`xhr.setRequestHeader ("Authorization", "Basic " + btoa(Creds.un + ":" + Creds.pw))`
+
+Then, create a new directory called `config` and add a file `creds.js` that looks something like this
+```
+let Creds = {
+  un: "ash",
+  pw: "GottaCatchEmAll150"
+}
+
+export default Creds
+```
+
 ### Tests
 I spent most of this weekend at a wedding so I didn't have the time to implement proper tests. The one test I was able to run (and passed every time) is:
 ```
