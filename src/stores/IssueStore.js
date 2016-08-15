@@ -2,7 +2,7 @@ import Dispatcher from '../Dispatcher';
 import $ from 'jquery';
 import linkParser from 'parse-link-header';
 
-import Creds from '../config/creds';
+//import Creds from '../config/creds';
 
 // Started as a single store for just holding issues, but eventually
 // because the overall store for the entire app. Probably could
