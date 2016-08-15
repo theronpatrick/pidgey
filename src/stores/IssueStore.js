@@ -68,7 +68,7 @@ let IssueStore = {
         url: this._resourceUrl + "/" + id + "/comments",
         type: "GET",
         beforeSend: function (xhr) {
-          xhr.setRequestHeader ("Authorization", "Basic " + btoa(Creds.un + ":" + Creds.pw))
+          //xhr.setRequestHeader ("Authorization", "Basic " + btoa(Creds.un + ":" + Creds.pw))
         },
      })
      .then((data, status, xhr)=> {
