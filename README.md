@@ -39,4 +39,4 @@ describe('MarioCake', function() {
   });
 });
 ```
-!['mario'](https://cloud.githubusercontent.com/assets/1417999/17656485/8dcc691e-6288-11e6-9d9c-81df2ae941cd.JPG)
+!['mario'](https://cloud.githubusercontent.com/assets/1417999/17656539/26e80388-6289-11e6-8a28-d75f7f74b594.jpg)
