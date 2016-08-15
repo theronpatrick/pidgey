@@ -54,16 +54,12 @@ class IssueDetails extends Component {
       return <span style={style} key={index} className="label">{result.name}</span>
     })
 
-    console.log("comments..." , this.state.comments);
-
     let comments = this.state.comments.map((result, index) => {
       return <li key={index}>
         <div dangerouslySetInnerHTML={this._createMarkup(result.body)}></div>
         <div className="timestamp">{linkUser(result.user)} at {moment(result.created_at).format('MMMM Do YYYY, h:mm:ss a')}</div>
       </li>
     })
-
-
 
     return (
       <div className="issue-details-container">

@@ -22,9 +22,8 @@ class Pagination extends Component {
     }
 
     Dispatcher.on("issues", (data) => {
-      // Set objects individually so potentially undefined objects like "previous" are set correctly
-
-      console.log("expanded is " , data.listStyle);
+      // Set objects individually so potentially undefined objects like "previous" are
+      // set to empty objects if neccessary
 
       this.setState({
         pagination: {
@@ -88,11 +87,26 @@ class Pagination extends Component {
       {options}
     </select>
 
+    // Calculate issue result numbers shown. Could be expanded to take in
+    // state from IssueStore instead of hard coding results per page
+    let issueNumbers;
+    if (this.state.pagination.current.page) {
+      let perPage = 25;
+      let firstNum = (parseInt(this.state.pagination.current.page) - 1) * perPage + 1;
+      let lastNum = firstNum + perPage - 1;
+      issueNumbers = <span>Displaying {firstNum} - {lastNum}</span>
+    }
+
     return (
       <div className="pagination">
-        <span>Page: </span>{pageSelect}
-        <button type="button" onClick={this._expandedButtonClick}>{this.state.expandButtonText}</button>
-        <span className="pagination-button-container">{previousButton}{nextButton}</span>
+        <div className="pagination-number-container">
+          <span>Page: </span>{pageSelect}
+          <button type="button" onClick={this._expandedButtonClick}>{this.state.expandButtonText}</button>
+          <span className="pagination-button-container">{previousButton}{nextButton}</span>
+        </div>
+        <div>
+          {issueNumbers}
+        </div>
       </div>
     );
   }

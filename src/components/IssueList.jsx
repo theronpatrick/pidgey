@@ -67,6 +67,12 @@ class IssueList extends Component {
     IssueStore.refreshIssueComments(index);
   }
 
+  _keyPressed(index, e) {
+    if(e.nativeEvent.keyCode == 13){
+      this._selectIssue(index);
+    }
+  }
+
 
 
   render() {
@@ -83,10 +89,12 @@ class IssueList extends Component {
         })
 
         let boundClick = this._selectIssue.bind(this, i);
-        rows.push(<li key={i} className="issue" onClick={boundClick} data-selected={this.state.selectedIssue === i}>
+        let boundKeyPress = this._keyPressed.bind(this, i);
+
+        rows.push(<li key={i} className="issue" onClick={boundClick} data-selected={this.state.selectedIssue === i} tabIndex="0" role="button" onKeyPress={boundKeyPress}>
           <div><span className="title">{issue.title}</span></div>
+          <div className="number">Issue#: {issue.number}</div>
             <div className="summary">{this._shortenSummary(issue.body)}</div>
-            <div className="number">Issue#: {issue.number}</div>
             <div className="reported-by">Reported By: <img src={issue.user.avatar_url} alt="gravatar"></img> {linkUser(issue.user)}</div>
             <div className="labels">Labels: {labels}</div>
         </li>);

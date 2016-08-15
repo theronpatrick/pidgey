@@ -13,7 +13,7 @@ class Header extends Component {
     return (
       <div className="header">
         <div className="title-container">
-          <h1>Issue Viewer</h1>
+          <h1>Issues on Rails</h1>
         </div>
         <div className="controls-container">
           <Pagination />
