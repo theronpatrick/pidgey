@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Dispatcher from '../Dispatcher';
 import IssueStore from '../stores/IssueStore';
 import $ from 'jquery';
+import Loader from './Loader'
 
 class Pagination extends Component {
 
@@ -68,6 +69,11 @@ class Pagination extends Component {
 
     let previousButton;
     let nextButton;
+
+    // If there's no current page, just return a loader
+    if (!this.state.pagination.current.page) {
+      return <Loader />
+    }
 
     if (this.state.pagination.previous.page) {
       previousButton = <button type="button" onClick={this._buttonClick} data-page={this.state.pagination.previous.page}>Previous</button>

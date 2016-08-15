@@ -68,7 +68,7 @@ class IssueList extends Component {
   }
 
   _keyPressed(index, e) {
-    if(e.nativeEvent.keyCode == 13){
+    if(e.nativeEvent.keyCode === 13){
       this._selectIssue(index);
     }
   }

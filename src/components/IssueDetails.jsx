@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Dispatcher from '../Dispatcher';
+import Loader from '../components/Loader';
 import ReactDOM from 'react-dom';
 import marked from 'marked';
 import linkUser from '../helpers/linkUser';
@@ -45,7 +46,7 @@ class IssueDetails extends Component {
     let issue = this.state.issues[this.state.selectedIssue];
 
     if (!issue) {
-      return (<div>Loading...</div>)
+      return (<Loader />)
     }
 
     let labels = issue.labels.map((result, index) => {
