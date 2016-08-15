@@ -30,7 +30,10 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 ### Known Issues
 
 The GitHub API limits the amount of API requests you can make to 30 per hour if you're not authenticated.  <br>
-To add authentication, uncomment the lines in `IssueStore.js` that looks like: <br>
+To add authentication, uncomment the `import` in `IssueStore.js` that looks like: <br>
+`import Creds from '../config/creds';`
+
+Also uncomment the two lines that looks like: <br>
 `xhr.setRequestHeader ("Authorization", "Basic " + btoa(Creds.un + ":" + Creds.pw))`
 
 Then, create a new directory called `config` and add a file `creds.js` that looks something like this
